@@ -11,6 +11,10 @@ body {
     font-size: 16px;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 .logo, .button-bar, .register-link, .registration-form h1,
 .button-submit, .user-image, .user-tab, .user-tab-active, .button-not-submit {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -160,14 +164,14 @@ header {
     justify-content: flex-start;
     display: flex;
     min-height: calc(100vh - 91px);
-    width: 100%;
-    padding-right: 20px;
 }
 
 .main-container {
     color: #fff;
     width: 100%;
-    margin-bottom: 20px;
+    padding: 10px;
+    overflow-x: scroll;
+    display: flex;
 }
 
 .menu-left {
@@ -233,7 +237,8 @@ header {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    gap: 40px
+    gap: 40px;
+    position: fixed
 }
 
 .left-bar-container::-webkit-scrollbar {
@@ -242,7 +247,13 @@ header {
 
 .main {
     display: flex;
-    gap: 10px
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 40px;
 }
 
 td, th {
@@ -323,7 +334,45 @@ th {
     margin: 0 5px 0 0
 }
 
-@media (max-width: 880px) {
+.left-bar-bottom {
+    display: flex;
+    align-items: center;
+    width: 210px;
+    margin-bottom: 20px
+}
+
+.left-bar-container-absolute {
+    justify-content: space-between;
+    height: 100%;
+    position: static;
+}
+
+.left-bar-buttons-absolute {
+    gap: 40px;
+    display: flex;
+    flex-direction: column
+}
+
+.left-bar-absolute {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    background: #171717;
+    z-index: 2000;
+    transition: width .1s linear;
+}
+
+.blackout {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background: #000;
+    z-index: 1500;
+    transition: opacity .1s linear
+}
+
+@media (max-width: 1080px) {
     .right-header-container {
         width: 0;
         overflow: hidden;
@@ -335,7 +384,7 @@ th {
     }
 }
 
-@media (max-width: 730px) {
+@media (max-width: 950px) {
     header {
         transition: height .1s;
     }
@@ -347,13 +396,5 @@ th {
     .main-right-container {
         justify-content: center;
         width: calc(100vw - 20px);
-        margin: 0 20px 0;
-        padding: 0;
-    }
-}
-
-@media (max-width: 510px) {
-    .main-right-container {
-        margin: 0 10px 0;
     }
 }

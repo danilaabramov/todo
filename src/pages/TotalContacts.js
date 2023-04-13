@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Edit from "../icons/edit";
 import Delete from "../icons/delete";
 
@@ -78,12 +78,13 @@ export default function TotalContacts() {
     }
 
     return (<div className="main-container">
-        <div className="top-contacts-container">
-            <h1>Total Contacts</h1>
-            <div className="button-submit" onClick={handleAdd}>Add +</div>
-        </div>
+        <table>
 
-        <table style={{borderCollapse: 'collapse', width: '100%'}}>
+            <div className="top-contacts-container">
+                <h1>Total Contacts</h1>
+                <div className="button-submit" onClick={handleAdd}>Add +</div>
+            </div>
+
             <tr className="table-header">
                 {['Client ID', 'Client name', 'TRN/PPSN', 'Year end', 'ARD', 'Company number', 'Email', 'Phone number', 'Company address', 'Action']
                     .map((item, index) => <th key={index} style={{border: index === 0 ? 0 : ""}}>{item}</th>)}

@@ -11,7 +11,7 @@ function App() {
     const popupRef = useRef(null)
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [activeLeftBar, setActiveLeftBar] = useState(windowWidth > 880)
+    const [activeLeftBar, setActiveLeftBar] = useState(windowWidth > 1080)
     const [activeAbsoluteLeftBar, setActiveAbsoluteLeftBar] = useState(false)
     const [isFocused1, setIsFocused1] = useState(false);
 
@@ -22,7 +22,7 @@ function App() {
     }, []);
 
     const handleLeftBar = () => {
-        if (windowWidth > 880) {
+        if (windowWidth > 1080) {
             setActiveLeftBar(a => !a)
         } else {
             setActiveAbsoluteLeftBar(a => !a)
@@ -31,8 +31,8 @@ function App() {
     }
 
     useEffect(() => {
-        setActiveLeftBar(windowWidth > 880)
-        if (windowWidth > 880) {
+        setActiveLeftBar(windowWidth > 1080)
+        if (windowWidth > 1080) {
             setActiveAbsoluteLeftBar(false)
             enableBodyScroll(popupRef.current)
         }
@@ -66,7 +66,7 @@ function App() {
         <main className='main'>
 
             <div style={{minWidth: activeLeftBar ? 190 : 70}} className='left-bar'>
-                <div className='left-bar-container' style={{position: 'fixed'}}>
+                <div className='left-bar-container'>
                     <Link to='/'>
                         <ButtonBar name='TotalContacts' text='Total Contacts' active={activeLeftBar}/>
                     </Link>
@@ -79,27 +79,11 @@ function App() {
                 </div>
             </div>
 
-            <div style={{
-                position: 'fixed',
-                width: '100vw',
-                height: '100vh',
-                top: 0,
-                background: '#000',
-                zIndex: 1500,
-                pointerEvents: activeAbsoluteLeftBar ? '' : 'none',
-                opacity: activeAbsoluteLeftBar ? 0.5 : 0,
-                transition: 'opacity .1s linear'
-            }} onClick={handleLeftBar}/>
+            <div className="blackout"
+                 style={{pointerEvents: activeAbsoluteLeftBar ? '' : 'none', opacity: activeAbsoluteLeftBar ? 0.5 : 0}}
+                 onClick={handleLeftBar}/>
 
-            <div style={{
-                position: 'fixed',
-                width: activeAbsoluteLeftBar ? 210 : 0,
-                height: '100vh',
-                top: 0,
-                background: '#171717',
-                zIndex: 2000,
-                transition: 'width .1s linear',
-            }}>
+            <div className="left-bar-absolute" style={{width: activeAbsoluteLeftBar ? 210 : 0,}}>
 
                 <div className='header-container'>
                     <div className='left-header-container'>
@@ -115,8 +99,8 @@ function App() {
                     </div>
                 </div>
 
-                <div className='left-bar-container' style={{justifyContent: 'space-between', height: '100%'}}>
-                    <div style={{gap: 40, display: 'flex', flexDirection: 'column'}}>
+                <div className='left-bar-container left-bar-container-absolute'>
+                    <div className="left-bar-buttons-absolute">
                         <Link to='/' onClick={handleLeftBar}>
                             <ButtonBar name='TotalContacts' text='Total Contacts'/>
                         </Link>
@@ -128,7 +112,7 @@ function App() {
                         </Link>
                     </div>
 
-                    <div style={{display: 'flex', alignItems: 'center', width: 210, marginBottom: 20}}>
+                    <div className="left-bar-bottom">
                         <Avatar/>
                         <div className="user-details">
                             <h2>Mr. Director</h2>
@@ -139,7 +123,8 @@ function App() {
 
             </div>
 
-            <div className='main-right-container'>
+            <div className='main-right-container'
+                 style={{width: activeLeftBar ? 'calc(100% - 190px)' : windowWidth > 950 ? 'calc(100% - 70px)' : '100%'}}>
                 <Routes>
                     <Route path="/" exact element={<TotalContacts/>}/>
                 </Routes>
@@ -150,7 +135,6 @@ function App() {
                     <Route path="/project-report" element={<div/>}/>
                 </Routes>
             </div>
-
         </main>
     </div>);
 }
